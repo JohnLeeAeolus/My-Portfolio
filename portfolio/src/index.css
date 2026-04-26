@@ -1,0 +1,87 @@
+:root {
+  --text: #2a2f3a;
+  --text-h: #2a2f3a;
+  --muted: #6c7384;
+  --bg: #ffffff;
+  --surface: #ffffff;
+  --border: #e6e8ef;
+  --accent: #f04a76;
+  --accent-weak: rgba(240, 74, 118, 0.14);
+  --accent-border: rgba(240, 74, 118, 0.45);
+  --shadow: 0 10px 24px rgba(17, 24, 39, 0.08);
+
+  --pastel-a: #eef7e9;
+  --pastel-b: #fdeef1;
+  --pastel-c: #edf3ff;
+  --footer-bg: #171a20;
+  --footer-text: #f3f4f7;
+  --footer-muted: rgba(243, 244, 247, 0.72);
+
+  --container: 1120px;
+  --radius: 18px;
+
+  --sans: system-ui, 'Segoe UI', Roboto, sans-serif;
+  --heading: system-ui, 'Segoe UI', Roboto, sans-serif;
+
+  font: 16px/160% var(--sans);
+  letter-spacing: 0.1px;
+  color-scheme: light;
+  color: var(--text);
+  background: var(--bg);
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+@media (min-width: 1500px) {
+  :root {
+    --container: 1400px;
+  }
+}
+
+body {
+  margin: 0;
+  min-height: 100svh;
+  background: var(--bg);
+}
+
+#root {
+  min-height: 100svh;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 72px;
+}
+
+a {
+  color: inherit;
+}
+
+a:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: 12px;
+}
+
+h1,
+h2 {
+  font-family: var(--heading);
+  font-weight: 700;
+  color: var(--text);
+}
+
+h1 {
+  font-size: clamp(40px, 5vw, 62px);
+  letter-spacing: -1.4px;
+}
+h2 {
+  font-size: 28px;
+  line-height: 1.2;
+  letter-spacing: -0.6px;
+  margin: 0;
+}
+p {
+  margin: 0;
+}
