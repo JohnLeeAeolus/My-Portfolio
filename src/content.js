@@ -4,8 +4,8 @@ export const profile = {
   location: '',
   blurb:
     "Salutations! I'm a passionate and committed developer with extensive knowledge in database administration.",
-  heroImage: '/portrait.svg',
-  contactImage: '/portrait.svg',
+  heroImage: '/me.jpeg',
+  contactImage: '/me.jpeg',
   email: 'johnleeeolusc@gmail.com',
   phone: '+639083464051',
   links: {
