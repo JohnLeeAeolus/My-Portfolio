@@ -4,6 +4,35 @@
   flex-direction: column;
 }
 
+.routeView {
+  animation: routeIn 220ms ease both;
+}
+
+@keyframes routeIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.routeOverlay {
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  background: var(--bg);
+  opacity: 0;
+  transition: opacity 220ms ease;
+  z-index: 40;
+}
+
+.routeOverlay.on {
+  opacity: 0.06;
+}
+
 .skip-link {
   position: absolute;
   left: -9999px;
