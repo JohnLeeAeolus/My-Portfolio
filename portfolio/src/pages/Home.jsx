@@ -1,24 +1,18 @@
 import { useId, useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { about, profile, projects, skillGroups, testimonials } from '../content.js'
+import { profile, projects, skillGroups, testimonials } from '../content.js'
 
 function Home() {
-  const featured = projects.slice(0, 4)
   const firstName = profile.name.split(' ')[0] || profile.name
   const roleShort = profile.role.split('•')[0]?.trim() || profile.role
   const ringPathId = useId()
-  const [testimonialIndex, setTestimonialIndex] = useState(0)
 
-  const currentTestimonial = testimonials?.length
-    ? testimonials[Math.min(testimonialIndex, testimonials.length - 1)]
-    : null
+  const featured = Array.isArray(projects) ? projects.slice(0, 2) : []
 
   const skillsColumns = useMemo(() => {
     if (!Array.isArray(skillGroups) || skillGroups.length === 0) return []
 
-    // Flatten items to match the template's simple list look.
     const items = skillGroups.flatMap((g) => g.items || [])
-
     const cols = [[], [], []]
     items.forEach((item, idx) => {
       cols[idx % 3].push(item)
@@ -27,32 +21,23 @@ function Home() {
     return cols.filter((col) => col.length)
   }, [])
 
-  const timelineItems = [
-    about.education?.[0]
-      ? {
-          title: about.education[0].program,
-          meta: `${about.education[0].school} • ${about.education[0].years}`,
-        }
-      : null,
-    {
-      title: 'Oracle Cloud & Databases',
-      meta: 'Certified foundations + SQL/NoSQL fundamentals',
-    },
-    {
-      title: 'Building real projects',
-      meta: 'Learning by shipping apps and improving systems',
-    },
-  ].filter(Boolean)
+  const allTestimonials = Array.isArray(testimonials) ? testimonials.filter(Boolean) : []
+  const [testimonialIndex, setTestimonialIndex] = useState(0)
+  const currentTestimonial = allTestimonials.length ? allTestimonials[testimonialIndex % allTestimonials.length] : null
+
+  function onNextTestimonial() {
+    if (allTestimonials.length <= 1) return
+    setTestimonialIndex((prev) => (prev + 1) % allTestimonials.length)
+  }
 
   return (
     <>
       <section className="section hero" aria-label="Hero">
         <div className="heroGrid">
           <div className="heroText">
-            <p className="eyebrow">{roleShort}</p>
             <h1 className="title">
-              Hello! I'm {firstName},
-              <br />a {roleShort.toLowerCase()}
+              Hello! I'm {firstName}, a
+              <br />{roleShort.toLowerCase()}
             </h1>
             <p className="subtitle">
               {profile.blurb}{' '}
@@ -60,21 +45,10 @@ function Home() {
                 <span className="muted">({profile.location})</span>
               ) : null}
             </p>
-            <div className="ctaRow">
-              <Link className="button primary" to="/about">
-                More about me
-              </Link>
-              <Link className="button" to="/projects">
-                Browse projects
-              </Link>
-            </div>
-            <div className="metaRow" aria-label="Social links">
-              {profile.links?.github ? (
-                <a href={profile.links.github} target="_blank" rel="noreferrer">
-                  GitHub
-                </a>
-              ) : null}
-            </div>
+
+            <Link className="heroLink" to="/about" aria-label="More about me">
+              More about me <span aria-hidden="true">→</span>
+            </Link>
           </div>
 
           <div className="heroRight" aria-label="Hero image">
@@ -102,50 +76,46 @@ function Home() {
         </div>
       </section>
 
-      <section className="section" aria-label="My work">
-        <div className="split">
-          <div>
-            <h2>My work</h2>
-            <p className="muted" style={{ marginTop: 10 }}>
-              A quick look at what I’m learning and building.
-            </p>
-          </div>
+      <section className="section" aria-label="Featured projects">
+        <div className="featureBlocks" aria-label="Project highlights">
+          {featured.map((project, index) => {
+            const bg = index === 0 ? 'var(--pastel-a)' : 'var(--pastel-b)'
+            const rawImages = [project.thumb, ...(project.gallery || []), project.heroImage].filter(Boolean)
+            const images = (index === 0 ? rawImages.slice(0, 3) : rawImages.slice(0, 2)).filter(Boolean)
 
-          <div className="timeline" aria-label="Timeline">
-            {timelineItems.map((item) => (
-              <div key={item.title} className="timelineItem">
-                <div className="timelineDot" aria-hidden="true" />
-                <div>
-                  <div className="timelineTitle">{item.title}</div>
-                  <div className="timelineMeta">{item.meta}</div>
+            return (
+              <article key={project.slug || project.title} className="featureBlock" style={{ background: bg }}>
+                <div className={`featureInner ${index === 1 ? 'featureReverse' : ''}`}
+                >
+                  <div className="featureText">
+                    <div className="featureKicker">{project.category || project.tech?.[0] || 'Project'}</div>
+                    <div className="featureTitle">{project.title}</div>
+                    <p className="featureDesc">{project.description}</p>
+
+                    {project.slug ? (
+                      <Link className="featureLink" to={`/projects/${project.slug}`}>
+                        View project <span aria-hidden="true">←</span>
+                      </Link>
+                    ) : null}
+                  </div>
+
+                  <div className={`featureMedia ${images.length === 3 ? 'featureMediaThree' : 'featureMediaTwo'}`} aria-hidden="true">
+                    {images.map((src, imgIndex) => (
+                      <div key={`${src}-${imgIndex}`} className="featureImg">
+                        <img src={src} alt="" loading="lazy" />
+                      </div>
+                    ))}
+                  </div>
                 </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="section" aria-label="Hobby projects">
-        <div className="sectionHeader">
-          <h2>Hobby projects</h2>
-          <p className="muted">Side builds, experiments, and practice projects.</p>
+              </article>
+            )
+          })}
         </div>
 
-        <div className="mosaic">
-          {featured.map((project, index) => (
-            <div
-              key={project.title}
-              className={`mosaicItem ${['mosaicA', 'mosaicB', 'mosaicC', 'mosaicD'][index]}`}
-            >
-              <Link to="/projects" aria-label={`Open projects page (from ${project.title})`}>
-                <div className="mosaicMedia" aria-hidden="true" />
-                <div className="mosaicBody">
-                  <div className="mosaicTitle">{project.title}</div>
-                  <div className="mosaicSub">{project.tech?.slice(0, 2).join(' • ')}</div>
-                </div>
-              </Link>
-            </div>
-          ))}
+        <div className="browseRow">
+          <Link className="browseButton" to="/projects">
+            Browse all projects
+          </Link>
         </div>
       </section>
 
@@ -179,20 +149,17 @@ function Home() {
               <div className="testimonialLabel">{currentTestimonial.label || 'Testimonials'}</div>
               <div className="testimonialQuote">“{currentTestimonial.quote}”</div>
               <div className="testimonialName">{currentTestimonial.name}</div>
-              {currentTestimonial.meta ? (
-                <div className="testimonialMeta">{currentTestimonial.meta}</div>
-              ) : null}
+              {currentTestimonial.meta ? <div className="testimonialMeta">{currentTestimonial.meta}</div> : null}
 
-              {testimonials.length > 1 ? (
-                <button
-                  type="button"
-                  className="tinyButton"
-                  onClick={() => setTestimonialIndex((i) => (i + 1) % testimonials.length)}
-                >
-                  Next
-                  <span aria-hidden="true">←</span>
-                </button>
-              ) : null}
+              <button
+                type="button"
+                className="tinyButton"
+                onClick={onNextTestimonial}
+                disabled={allTestimonials.length <= 1}
+                aria-label="Next testimonial"
+              >
+                Next <span aria-hidden="true">←</span>
+              </button>
             </div>
           </div>
         ) : null}

@@ -46,6 +46,12 @@ body {
   background: var(--bg);
 }
 
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
 #root {
   min-height: 100svh;
 }
@@ -53,6 +59,21 @@ body {
 html {
   scroll-behavior: smooth;
   scroll-padding-top: 72px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
 
 a {

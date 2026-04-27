@@ -1,16 +1,44 @@
-import { useId } from 'react'
+import { useId, useState } from 'react'
 import { profile } from '../content.js'
 
 function Contact() {
   const ringPathId = useId()
+  const [errors, setErrors] = useState({ email: '', message: '' })
+  const [status, setStatus] = useState('')
+
+  function isValidEmail(value) {
+    const v = String(value || '').trim()
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)
+  }
 
   function onSubmit(event) {
     event.preventDefault()
+    setStatus('')
 
     const form = event.currentTarget
     const formData = new FormData(form)
     const fromEmail = String(formData.get('email') || '').trim()
     const message = String(formData.get('message') || '').trim()
+
+    const nextErrors = {
+      email: '',
+      message: '',
+    }
+
+    if (!isValidEmail(fromEmail)) {
+      nextErrors.email = 'Please enter a valid email address.'
+    }
+
+    if (!message) {
+      nextErrors.message = 'Please enter a message.'
+    }
+
+    if (nextErrors.email || nextErrors.message) {
+      setErrors(nextErrors)
+      return
+    }
+
+    setErrors({ email: '', message: '' })
 
     const subject = fromEmail
       ? `Portfolio inquiry from ${fromEmail}`
@@ -21,51 +49,73 @@ function Contact() {
       message ? `\n${message}` : null,
     ].filter(Boolean)
 
+    setStatus('Opening your email client…')
     window.location.href = `mailto:${profile.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(bodyLines.join('\n'))}`
     form.reset()
   }
 
   return (
-    <section className="section" aria-label="Contact">
-      <div className="sectionHeader">
-        <h2>Contact</h2>
-        <p className="muted">Want to work together? Send a message.</p>
-      </div>
+    <section className="section hero" aria-label="Contact">
+      <div className="heroGrid">
+        <div className="heroText">
+          <h1 className="title">Say hello and let's work together!</h1>
 
-      <div className="contactHero">
-        <form className="contactForm" onSubmit={onSubmit}>
-          <div className="formRow">
-            <div>
-              <div className="subhead">Email</div>
-              <input
-                className="fieldInputLight"
-                name="email"
-                type="email"
-                placeholder="Your email address"
-                autoComplete="email"
-              />
-            </div>
+          <form className="contactFormPlain" onSubmit={onSubmit}>
+            <div className="contactFields">
+              <div>
+                <label className="contactLabel" htmlFor="contact-email">
+                  Email
+                </label>
+                <input
+                  className="fieldInputLight"
+                  id="contact-email"
+                  name="email"
+                  type="email"
+                  placeholder="Your email address"
+                  autoComplete="email"
+                  aria-invalid={Boolean(errors.email)}
+                  aria-describedby={errors.email ? 'contact-email-error' : undefined}
+                />
+                {errors.email ? (
+                  <div id="contact-email-error" className="formError" role="alert">
+                    {errors.email}
+                  </div>
+                ) : null}
+              </div>
 
-            <div>
-              <div className="subhead">Message</div>
-              <textarea
-                className="fieldInputLight"
-                name="message"
-                rows={6}
-                placeholder="Describe your project"
-              />
-            </div>
+              <div>
+                <label className="contactLabel" htmlFor="contact-message">
+                  Message
+                </label>
+                <textarea
+                  className="fieldInputLight"
+                  id="contact-message"
+                  name="message"
+                  rows={4}
+                  placeholder="Describe your project"
+                  aria-invalid={Boolean(errors.message)}
+                  aria-describedby={errors.message ? 'contact-message-error' : undefined}
+                />
+                {errors.message ? (
+                  <div id="contact-message-error" className="formError" role="alert">
+                    {errors.message}
+                  </div>
+                ) : null}
+              </div>
 
-            <div className="ctaRow" style={{ marginTop: 4 }}>
-              <button type="submit" className="button primary">
-                Submit
-              </button>
-              <a className="button" href={`mailto:${profile.email}`}>
-                {profile.email}
-              </a>
+              <div className="contactActions">
+                <button type="submit" className="button primary contactSubmit">
+                  Submit <span aria-hidden="true">←</span>
+                </button>
+                {status ? (
+                  <div className="formStatus" role="status" aria-live="polite">
+                    {status}
+                  </div>
+                ) : null}
+              </div>
             </div>
-          </div>
-        </form>
+          </form>
+        </div>
 
         <div className="heroRight" aria-label="Contact image">
           <div className="circle">
@@ -84,7 +134,6 @@ function Contact() {
                     CONTACT ME • CONTACT ME • CONTACT ME •
                   </textPath>
                 </text>
-                <path className="ringArrow" d="M100 72v48m0 0l-10-10m10 10l10-10" />
               </svg>
             </span>
           </div>

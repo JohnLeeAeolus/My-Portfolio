@@ -1,7 +1,28 @@
+import { Link, useNavigate } from 'react-router-dom'
 import { projects } from '../content.js'
 
 function Projects() {
   const pastels = ['var(--pastel-a)', 'var(--pastel-b)', 'var(--pastel-c)']
+  const navigate = useNavigate()
+
+  function openProject(slug) {
+    if (!slug) return
+    navigate(`/projects/${slug}`)
+  }
+
+  function onCardClick(event, slug) {
+    if (!slug) return
+    if (event.target && event.target.closest && event.target.closest('a, button')) return
+    openProject(slug)
+  }
+
+  function onCardKeyDown(event, slug) {
+    if (!slug) return
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault()
+      openProject(slug)
+    }
+  }
 
   return (
     <section className="section" aria-label="Projects">
@@ -16,6 +37,11 @@ function Projects() {
             key={project.title}
             className="projectBlock"
             style={{ background: pastels[index % pastels.length] }}
+            role={project.slug ? 'link' : undefined}
+            tabIndex={project.slug ? 0 : undefined}
+            aria-label={project.slug ? `Open project: ${project.title}` : undefined}
+            onClick={(event) => onCardClick(event, project.slug)}
+            onKeyDown={(event) => onCardKeyDown(event, project.slug)}
           >
             <div className="projectBlockInner">
               <div>
@@ -32,6 +58,9 @@ function Projects() {
                 </div>
 
                 <div className="linkRow" style={{ marginTop: 14 }}>
+                  {project.slug ? (
+                    <Link to={`/projects/${project.slug}`}>View project ←</Link>
+                  ) : null}
                   {project.links?.live ? (
                     <a href={project.links.live} target="_blank" rel="noreferrer">
                       Live

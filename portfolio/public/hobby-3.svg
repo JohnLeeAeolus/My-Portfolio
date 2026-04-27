@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="800" viewBox="0 0 900 800" role="img" aria-label="Hobby project image">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#fdeef1"/>
+      <stop offset="1" stop-color="#edf3ff"/>
+    </linearGradient>
+    <radialGradient id="r" cx="70%" cy="35%" r="70%">
+      <stop offset="0" stop-color="#ffffff" stop-opacity="0.85"/>
+      <stop offset="1" stop-color="#ffffff" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="900" height="800" rx="44" fill="url(#g)"/>
+  <circle cx="620" cy="280" r="300" fill="url(#r)"/>
+  <path d="M120 600c150-220 330-320 540-300 150 15 280 90 390 220-120 140-280 220-480 240-210 20-360-40-450-160z" fill="#0b0d12" opacity="0.06"/>
+</svg>
