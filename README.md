@@ -1,21 +1,15 @@
-# My Portfolio
+# Portfolio (React + Vite)
 
-This repo contains a React + Vite portfolio app inside the `portfolio/` folder.
+Single-page portfolio website built with React and Vite.
 
-## Run
-
-From the repo root:
+## Run locally
 
 ```bash
+npm install
 npm run dev
 ```
 
-Or run directly from the app folder:
-
-```bash
-cd portfolio
-npm run dev
-```
+Then open the URL Vite prints (usually `http://localhost:5173`).
 
 ## Build
 
@@ -26,5 +20,16 @@ npm run preview
 
 ## Customize
 
-- Edit your info + projects in `portfolio/src/content.js`
-- Theme tokens are in `portfolio/src/index.css`
+- Update your name, role, location, email, links, projects, and skills in `src/content.js`.
+- Theme and layout tokens live in `src/index.css` (`--accent`, `--bg`, `--surface`, `--container`).
+
+## Pages
+
+- `/` Home
+- `/about` About
+- `/projects` Projects
+- `/contact` Contact
+
+## Deploy note
+
+If you deploy to a static host, configure a rewrite so all routes serve `index.html` (SPA routing).
