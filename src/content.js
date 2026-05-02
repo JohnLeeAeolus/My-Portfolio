@@ -7,7 +7,7 @@ export const profile = {
   heroImage: '/me.jpg',
   contactImage: '/me.jpg',
   email: 'johnleeeolusc@gmail.com',
-  phone: '+639083464051',
+
   links: {
     github: 'https://github.com/JohnLeeAeolus',
     facebook: 'https://facebook.com/aeoluscadano/',
@@ -69,8 +69,14 @@ export const projects = [
     category: 'Mobile App',
     date: '',
     client: '',
-    heroImage: '/work-hero.svg',
-    gallery: ['/work-gallery-1.svg', '/work-gallery-2.svg'],
+    heroImage: '/internQuest-mobileside/download.jpg',
+    gallery: [
+      '/internQuest-mobileside/download.jpg',
+      '/internQuest-mobileside/download (3).jpg',
+      '/internQuest-mobileside/download (1).jpg',
+      '/internQuest-mobileside/download (2).jpg',
+      '/internQuest-mobileside/download (1) (1).jpg',
+    ],
     detailHeading: 'What I worked on',
     detailText:
       'This project focuses on building a mobile experience that helps users navigate internships and opportunities. I worked on shaping the flow, improving clarity, and organizing the app features into a consistent UI.',
@@ -79,27 +85,34 @@ export const projects = [
       live: '',
       code: 'https://github.com/Justine1193/InternQuest-Mobile-Application.git',
     },
-    thumb: '/work-thumb-1.svg',
+    thumb: '/internQuest-mobileside/download (3).jpg',
   },
   {
-    title: 'Project Two',
+    title: 'UniLearn Nexus',
     description:
-      'A short description of the problem you solved and what you learned.',
-    slug: 'project-two',
-    category: 'Web App',
+      'A responsive Learning Management System (LMS) web app concept—similar to an NEU VLE—for managing courses, assignments, and communication.',
+    slug: 'unilearn-nexus',
+    category: 'LMS • School Project',
     date: '',
     client: '',
-    heroImage: '/work-hero.svg',
-    gallery: ['/work-gallery-2.svg', '/work-gallery-1.svg'],
-    detailHeading: 'Highlights',
+    heroImage:
+      '/student-side-unilearnNexus/612399917_2063877847676356_1106514963270566074_n.png',
+    gallery: [
+      '/student-side-unilearnNexus/612281540_886808570422668_7360130296537412602_n.png',
+      '/student-side-unilearnNexus/614078072_1577386330080996_1366072222295167076_n.png',
+      '/student-side-unilearnNexus/610881515_1448242463970953_4360542532112567985_n.png',
+      '/student-side-unilearnNexus/612330570_1562527991684317_6337024470227483350_n.png',
+    ],
+    detailHeading: 'Key features',
     detailText:
-      'A clean project page with a strong story: what the goal was, how it was built, and what improved. Replace this text with a real summary once you finalize the project details.',
-    tech: ['JavaScript', 'API', 'UI'],
+      'UniLearn Nexus is a user-friendly LMS concept designed for students and instructors. It includes a unified course dashboard, announcements/discussions, centralized learning resources, assignment submission and grading workflows, basic progress tracking/analytics, and a responsive layout for mobile, tablet, and desktop.',
+    tech: ['React', 'Responsive', 'LMS', 'UI/UX'],
     links: {
-      live: 'https://example.com',
-      code: 'https://github.com/your-username/project-two',
+      live: '',
+      code: 'https://github.com/JohnLeeAeolus/CodTech.git',
     },
-    thumb: '/work-thumb-2.svg',
+    thumb:
+      '/student-side-unilearnNexus/612330570_1562527991684317_6337024470227483350_n.png',
   },
   {
     title: 'Project Three',
@@ -153,15 +166,4 @@ export const hobbyProjects = [
   { title: 'Case Study', subtitle: 'Layouts & components', image: '/hobby-2.svg' },
   { title: 'Micro project', subtitle: 'Small feature', image: '/hobby-3.svg' },
   { title: 'Practice app', subtitle: 'Learning project', image: '/hobby-4.svg' },
-]
-
-export const testimonials = [
-  {
-    label: 'Testimonials',
-    quote:
-      'John is proactive, easy to work with, and communicates clearly. He consistently delivers reliable results and keeps improving with every project.',
-    name: 'Name Client',
-    meta: 'Company',
-    image: '/portrait.svg',
-  },
 ]

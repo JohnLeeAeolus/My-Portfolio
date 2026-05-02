@@ -1,6 +1,6 @@
-import { useId, useMemo, useState } from 'react'
+import { useId, useMemo } from 'react'
 import { Link } from 'react-router-dom'
-import { profile, projects, skillGroups, testimonials } from '../content.js'
+import { profile, projects, skillGroups } from '../content.js'
 
 function Home() {
   const firstName = profile.name.split(' ')[0] || profile.name
@@ -20,15 +20,6 @@ function Home() {
 
     return cols.filter((col) => col.length)
   }, [])
-
-  const allTestimonials = Array.isArray(testimonials) ? testimonials.filter(Boolean) : []
-  const [testimonialIndex, setTestimonialIndex] = useState(0)
-  const currentTestimonial = allTestimonials.length ? allTestimonials[testimonialIndex % allTestimonials.length] : null
-
-  function onNextTestimonial() {
-    if (allTestimonials.length <= 1) return
-    setTestimonialIndex((prev) => (prev + 1) % allTestimonials.length)
-  }
 
   return (
     <>
@@ -119,7 +110,7 @@ function Home() {
         </div>
       </section>
 
-      <section className="section" aria-label="Skills and testimonials">
+      <section className="section" aria-label="Skills">
         <div className="skillsWrap">
           <h2 className="skillsTitle">My skills</h2>
 
@@ -135,34 +126,6 @@ function Home() {
             ))}
           </div>
         </div>
-
-        {currentTestimonial ? (
-          <div className="testimonial" aria-label="Testimonials">
-            <div className="testimonialMedia" aria-hidden="true">
-              <div className="testimonialBlob" />
-              <div className="testimonialImg">
-                <img src={currentTestimonial.image || profile.heroImage} alt="" />
-              </div>
-            </div>
-
-            <div>
-              <div className="testimonialLabel">{currentTestimonial.label || 'Testimonials'}</div>
-              <div className="testimonialQuote">“{currentTestimonial.quote}”</div>
-              <div className="testimonialName">{currentTestimonial.name}</div>
-              {currentTestimonial.meta ? <div className="testimonialMeta">{currentTestimonial.meta}</div> : null}
-
-              <button
-                type="button"
-                className="tinyButton"
-                onClick={onNextTestimonial}
-                disabled={allTestimonials.length <= 1}
-                aria-label="Next testimonial"
-              >
-                Next <span aria-hidden="true">←</span>
-              </button>
-            </div>
-          </div>
-        ) : null}
       </section>
     </>
   )

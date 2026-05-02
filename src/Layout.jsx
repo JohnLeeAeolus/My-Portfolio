@@ -242,11 +242,6 @@ function Layout() {
                   <div className="contactFooterDetailLabel">Email</div>
                   <div className="contactFooterDetailValue">{profile.email}</div>
                 </div>
-
-                <div className="contactFooterDetail">
-                  <div className="contactFooterDetailLabel">Mobile</div>
-                  <div className="contactFooterDetailValue">{profile.phone}</div>
-                </div>
               </div>
             </div>
 

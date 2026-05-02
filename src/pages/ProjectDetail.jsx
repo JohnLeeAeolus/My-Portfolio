@@ -1,5 +1,5 @@
 import { Link, Navigate, useParams } from 'react-router-dom'
-import { profile, projects, testimonials } from '../content.js'
+import { projects } from '../content.js'
 
 function ProjectDetail() {
   const { slug } = useParams()
@@ -9,8 +9,11 @@ function ProjectDetail() {
     return <Navigate to="/projects" replace />
   }
 
+  const isMobileProject =
+    (typeof project.category === 'string' && project.category.toLowerCase().includes('mobile')) ||
+    (Array.isArray(project.tech) && project.tech.includes('Mobile App'))
+
   const other = projects.filter((p) => p.slug !== project.slug).slice(0, 3)
-  const t = testimonials?.[0] || null
 
   return (
     <section className="section" aria-label="Project details">
@@ -39,7 +42,7 @@ function ProjectDetail() {
         )}
       </div>
 
-      <div className="detailHero">
+      <div className={`detailHero${isMobileProject ? ' detailHeroMobile' : ''}`}>
         <img src={project.heroImage} alt="Project hero" loading="eager" />
       </div>
 
@@ -48,7 +51,10 @@ function ProjectDetail() {
         <p className="detailText">{project.detailText || project.description}</p>
 
         {Array.isArray(project.gallery) && project.gallery.length ? (
-          <div className="detailGallery" aria-label="Project images">
+          <div
+            className={`detailGallery${isMobileProject ? ' detailGalleryMobile' : ''}`}
+            aria-label="Project images"
+          >
             {project.gallery.slice(0, 2).map((src) => (
               <div key={src} className="detailGalleryItem">
                 <img src={src} alt="" loading="lazy" />
@@ -57,24 +63,6 @@ function ProjectDetail() {
           </div>
         ) : null}
       </div>
-
-      {t ? (
-        <div className="testimonial" aria-label="Testimonials" style={{ marginTop: 24 }}>
-          <div className="testimonialMedia" aria-hidden="true">
-            <div className="testimonialBlob" />
-            <div className="testimonialImg">
-              <img src={t.image || profile.heroImage} alt="" />
-            </div>
-          </div>
-
-          <div>
-            <div className="testimonialLabel">{t.label || 'Testimonials'}</div>
-            <div className="testimonialQuote">“{t.quote}”</div>
-            <div className="testimonialName">{t.name}</div>
-            {t.meta ? <div className="testimonialMeta">{t.meta}</div> : null}
-          </div>
-        </div>
-      ) : null}
 
       {other.length ? (
         <div className="otherProjects" aria-label="Other projects">

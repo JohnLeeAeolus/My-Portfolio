@@ -5,6 +5,15 @@ function Projects() {
   const pastels = ['var(--pastel-a)', 'var(--pastel-b)', 'var(--pastel-c)']
   const navigate = useNavigate()
 
+  function getProjectMedia(project) {
+    const items = []
+
+    if (project?.heroImage) items.push(project.heroImage)
+    if (Array.isArray(project?.gallery)) items.push(...project.gallery)
+
+    return items.filter(Boolean)
+  }
+
   function openProject(slug) {
     if (!slug) return
     navigate(`/projects/${slug}`)
@@ -33,6 +42,7 @@ function Projects() {
 
       <div className="projectBlocks">
         {projects.map((project, index) => (
+          
           <article
             key={project.title}
             className="projectBlock"
@@ -75,9 +85,16 @@ function Projects() {
               </div>
 
               <div className="projectMedia" aria-hidden="true">
-                <div className="mediaTile" />
-                <div className="mediaTile" />
-                <div className="mediaTile" />
+                {(() => {
+                  const media = getProjectMedia(project)
+                  const tiles = [media[0], media[1], media[2]]
+
+                  return tiles.map((src, tileIndex) => (
+                    <div key={tileIndex} className="mediaTile">
+                      {src ? <img src={src} alt="" loading="lazy" /> : null}
+                    </div>
+                  ))
+                })()}
               </div>
             </div>
           </article>
