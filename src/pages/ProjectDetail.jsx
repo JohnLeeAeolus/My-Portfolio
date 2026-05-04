@@ -5,13 +5,12 @@ function ProjectDetail() {
   const { slug } = useParams()
   const project = projects.find((p) => p.slug === slug)
 
+  const isPhoneProject =
+    typeof project?.heroImage === 'string' && project.heroImage.includes('/internQuest-mobileside/')
+
   if (!project) {
     return <Navigate to="/projects" replace />
   }
-
-  const isMobileProject =
-    (typeof project.category === 'string' && project.category.toLowerCase().includes('mobile')) ||
-    (Array.isArray(project.tech) && project.tech.includes('Mobile App'))
 
   const other = projects.filter((p) => p.slug !== project.slug).slice(0, 3)
 
@@ -42,7 +41,7 @@ function ProjectDetail() {
         )}
       </div>
 
-      <div className={`detailHero${isMobileProject ? ' detailHeroMobile' : ''}`}>
+      <div className={`detailHero${isPhoneProject ? ' detailHeroPhone' : ''}`}>
         <img src={project.heroImage} alt="Project hero" loading="eager" />
       </div>
 
@@ -52,7 +51,7 @@ function ProjectDetail() {
 
         {Array.isArray(project.gallery) && project.gallery.length ? (
           <div
-            className={`detailGallery${isMobileProject ? ' detailGalleryMobile' : ''}`}
+            className={`detailGallery${isPhoneProject ? ' detailGalleryPhone' : ''}`}
             aria-label="Project images"
           >
             {project.gallery.slice(0, 2).map((src) => (
@@ -76,7 +75,9 @@ function ProjectDetail() {
           <div className="otherGrid">
             {other.map((p) => (
               <Link key={p.slug} to={`/projects/${p.slug}`} className="otherCard">
-                <div className="otherMedia">
+                <div
+                  className={`otherMedia ${(p.thumb || p.heroImage || '').includes('/internQuest-mobileside/') ? 'otherMediaPhone' : ''}`}
+                >
                   <img src={p.thumb || p.heroImage} alt="" loading="lazy" />
                 </div>
                 <div className="otherTitle">{p.title}</div>

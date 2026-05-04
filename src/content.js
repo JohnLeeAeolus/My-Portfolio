@@ -3,7 +3,7 @@ export const profile = {
   role: 'Developer • Database Administration',
   location: '',
   blurb:
-    "Salutations! I'm a passionate and committed developer with extensive knowledge in database administration.",
+    "Salutations! I'm a passionate and committed developer with extensive knowledge in database administration. I enjoy building clean, responsive interfaces and connecting them to reliable data workflows. I'm always learning, improving my skills through hands-on projects, and aiming to create solutions that are simple to use and easy to maintain.",
   heroImage: '/me.jpg',
   contactImage: '/me.jpg',
   email: 'johnleeeolusc@gmail.com',
@@ -19,7 +19,7 @@ export const profile = {
 
 export const about = {
   intro:
-    "I started my career by pursuing a bachelor's degree in Information Technology, which gave me a strong foundation in the ever-evolving field of technology.",
+    "I started my career by pursuing a bachelor's degree in Information Technology, which gave me a strong foundation in the ever-evolving field of technology. Along the way, I developed a strong interest in building practical applications and working with data especially database design, SQL, and organizing information in a reliable way. I enjoy learning through real projects, improving my problem-solving skills, and creating systems that are clean, efficient, and user-friendly.",
   education: [
     {
       program: 'BS Information Technology',
@@ -90,7 +90,7 @@ export const projects = [
   {
     title: 'UniLearn Nexus',
     description:
-      'A responsive Learning Management System (LMS) web app concept—similar to an NEU VLE—for managing courses, assignments, and communication.',
+      'A responsive Learning Management System (LMS) web app concept similar to an NEU VLE for managing courses, assignments, and communication.',
     slug: 'unilearn-nexus',
     category: 'LMS • School Project',
     date: '',
@@ -115,22 +115,62 @@ export const projects = [
       '/student-side-unilearnNexus/612330570_1562527991684317_6337024470227483350_n.png',
   },
   {
-    title: 'Project Three',
+    title: 'GASA-ASSIST',
     description:
-      'A short description highlighting a feature, performance win, or design.',
-    slug: 'project-three',
-    category: 'React',
+      'A personal GitHub repository project (see repository for details).',
+    slug: 'gasa-assist',
+    category: 'Repository',
     date: '',
     client: '',
-    heroImage: '/work-hero.svg',
+    heroImage: '/hobby-1.svg',
     gallery: ['/work-gallery-1.svg', '/work-gallery-2.svg'],
-    detailHeading: 'What I learned',
+    detailHeading: 'Overview',
     detailText:
-      'This page is designed like the template: strong hierarchy, a large hero image, supporting images, and an “Other projects” section to keep browsing.',
-    tech: ['React', 'Accessibility', 'Responsive'],
+      'This project is published on GitHub. The repository includes the implementation and any documentation for setup and usage.',
+    tech: ['GitHub', 'Repository'],
     links: {
-      live: 'https://example.com',
-      code: 'https://github.com/your-username/project-three',
+      live: '',
+      code: 'https://github.com/JohnLeeAeolus/GASA-ASSIST.git',
+    },
+    thumb: '/work-thumb-1.svg',
+  },
+  {
+    title: 'SCAN',
+    description:
+      'A personal GitHub repository project (see repository for details).',
+    slug: 'scan',
+    category: 'Repository',
+    date: '',
+    client: '',
+    heroImage: '/hobby-2.svg',
+    gallery: ['/work-gallery-2.svg', '/work-gallery-1.svg'],
+    detailHeading: 'Overview',
+    detailText:
+      'This project is published on GitHub. The repository includes the implementation and any documentation for setup and usage.',
+    tech: ['GitHub', 'Repository'],
+    links: {
+      live: '',
+      code: 'https://github.com/JohnLeeAeolus/SCAN.git',
+    },
+    thumb: '/work-thumb-2.svg',
+  },
+  {
+    title: 'NEU-PC-Simulator',
+    description:
+      'A personal GitHub repository project (see repository for details).',
+    slug: 'neu-pc-simulator',
+    category: 'Repository',
+    date: '',
+    client: '',
+    heroImage: '/hobby-3.svg',
+    gallery: ['/work-gallery-1.svg', '/work-gallery-2.svg'],
+    detailHeading: 'Overview',
+    detailText:
+      'This project is published on GitHub. The repository includes the implementation and any documentation for setup and usage.',
+    tech: ['GitHub', 'Repository'],
+    links: {
+      live: '',
+      code: 'https://github.com/JohnLeeAeolus/NEU-PC-Simulator.git',
     },
     thumb: '/work-thumb-3.svg',
   },
@@ -162,8 +202,7 @@ export const skillGroups = [
 ]
 
 export const hobbyProjects = [
-  { title: 'Prototype Build', subtitle: 'UI experiments', image: '/hobby-1.svg' },
-  { title: 'Case Study', subtitle: 'Layouts & components', image: '/hobby-2.svg' },
-  { title: 'Micro project', subtitle: 'Small feature', image: '/hobby-3.svg' },
-  { title: 'Practice app', subtitle: 'Learning project', image: '/hobby-4.svg' },
+  { title: 'GASA-ASSIST', subtitle: 'GitHub repository', image: '/hobby-1.svg' },
+  { title: 'SCAN', subtitle: 'GitHub repository', image: '/hobby-2.svg' },
+  { title: 'NEU-PC-Simulator', subtitle: 'GitHub repository', image: '/hobby-3.svg' },
 ]

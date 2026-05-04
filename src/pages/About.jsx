@@ -82,7 +82,7 @@ function About() {
           </div>
         </div>
 
-        <div className="mosaic">
+        <div className={`mosaic ${hobbyProjects.length === 3 ? 'mosaicThree' : ''}`}>
           {hobbyProjects.map((project, index) => (
             <div
               key={project.title}

@@ -512,10 +512,16 @@
   display: block;
 }
 
-.detailHero.detailHeroMobile {
-  max-width: 420px;
-  margin-left: auto;
-  margin-right: auto;
+.detailHero.detailHeroPhone {
+  display: grid;
+  place-items: center;
+  padding: clamp(10px, 2vw, 18px);
+}
+
+.detailHero.detailHeroPhone img {
+  width: auto;
+  max-width: 100%;
+  max-height: min(70vh, 560px);
 }
 
 .detailBody {
@@ -546,21 +552,6 @@
   align-items: stretch;
 }
 
-.detailGallery.detailGalleryMobile {
-  max-width: 920px;
-  margin-left: auto;
-  margin-right: auto;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-}
-
-.detailGallery.detailGalleryMobile .detailGalleryItem {
-  aspect-ratio: 9 / 16;
-}
-
-.detailGallery.detailGalleryMobile .detailGalleryItem img {
-  object-fit: contain;
-}
-
 .detailGalleryItem {
   border-radius: var(--radius);
   border: 1px solid var(--border);
@@ -573,6 +564,14 @@
   height: 100%;
   object-fit: cover;
   display: block;
+}
+
+.detailGallery.detailGalleryPhone .detailGalleryItem {
+  max-height: min(60vh, 460px);
+}
+
+.detailGallery.detailGalleryPhone .detailGalleryItem img {
+  object-fit: contain;
 }
 
 .otherProjects {
@@ -617,12 +616,18 @@
   border: 1px solid var(--border);
   overflow: hidden;
   background: white;
+  aspect-ratio: 16 / 10;
 }
 
 .otherMedia img {
   width: 100%;
-  height: auto;
+  height: 100%;
+  object-fit: cover;
   display: block;
+}
+
+.otherMedia.otherMediaPhone img {
+  object-fit: contain;
 }
 
 .otherTitle {
@@ -868,6 +873,12 @@
     'a b c'
     'a b d';
   gap: 12px;
+}
+
+.mosaic.mosaicThree {
+  grid-template-areas:
+    'a b c'
+    'a b c';
 }
 
 .mosaicItem {
@@ -1577,13 +1588,24 @@ textarea.fieldInput {
 
 @media (max-width: 560px) {
   .nav {
-    flex-direction: column;
-    align-items: flex-start;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+
+  .brand {
+    flex: 1 1 auto;
+    min-width: 0;
+    max-width: calc(100% - 54px);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 16px;
   }
 
   .navToggle {
     display: inline-flex;
-    align-self: flex-end;
+    margin-left: auto;
   }
 
   .navLinksDesktop {

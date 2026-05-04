@@ -40,18 +40,34 @@ function Contact() {
 
     setErrors({ email: '', message: '' })
 
-    const subject = fromEmail
-      ? `Portfolio inquiry from ${fromEmail}`
-      : 'Portfolio inquiry'
+    const subject = fromEmail ? `Portfolio inquiry from ${fromEmail}` : 'Portfolio inquiry'
+    const bodyLines = [fromEmail ? `Email: ${fromEmail}` : null, message ? `\n${message}` : null].filter(
+      Boolean,
+    )
 
-    const bodyLines = [
-      fromEmail ? `Email: ${fromEmail}` : null,
-      message ? `\n${message}` : null,
-    ].filter(Boolean)
+    setStatus('Sending…')
 
-    setStatus('Opening your email client…')
-    window.location.href = `mailto:${profile.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(bodyLines.join('\n'))}`
-    form.reset()
+    const payload = new URLSearchParams({
+      'form-name': 'contact',
+      'bot-field': '',
+      email: fromEmail,
+      message,
+    })
+
+    fetch('/', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: payload.toString(),
+    })
+      .then(() => {
+        setStatus('Message sent!')
+        form.reset()
+      })
+      .catch(() => {
+        setStatus('Could not send — opening your email client…')
+        window.location.href = `mailto:${profile.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(bodyLines.join('\n'))}`
+        form.reset()
+      })
   }
 
   return (
@@ -60,7 +76,16 @@ function Contact() {
         <div className="heroText">
           <h1 className="title">Say hello and let's work together!</h1>
 
-          <form className="contactFormPlain" onSubmit={onSubmit}>
+          <form
+            className="contactFormPlain"
+            name="contact"
+            method="POST"
+            data-netlify="true"
+            netlify-honeypot="bot-field"
+            onSubmit={onSubmit}
+          >
+            <input type="hidden" name="form-name" value="contact" />
+            <input type="hidden" name="bot-field" />
             <div className="contactFields">
               <div>
                 <label className="contactLabel" htmlFor="contact-email">
@@ -73,6 +98,7 @@ function Contact() {
                   type="email"
                   placeholder="Your email address"
                   autoComplete="email"
+                  required
                   aria-invalid={Boolean(errors.email)}
                   aria-describedby={errors.email ? 'contact-email-error' : undefined}
                 />
@@ -93,6 +119,7 @@ function Contact() {
                   name="message"
                   rows={4}
                   placeholder="Describe your project"
+                  required
                   aria-invalid={Boolean(errors.message)}
                   aria-describedby={errors.message ? 'contact-message-error' : undefined}
                 />
